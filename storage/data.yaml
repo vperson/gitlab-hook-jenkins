@@ -1,0 +1,19 @@
+branchesMapJob:
+  - project: tam
+    jenkinsJob: server-app-tam
+    config:
+    - branch: refs/heads/master
+      params:
+        - name: BUILD_BRANCH
+          value: origin/release/dev
+        - name: BUILD_DEPLOY
+          value: false
+  - project: otam
+    jenkinsJob: server-app-otam
+    config:
+      - branch: refs/heads/master
+        params:
+          - name: BUILD_BRANCH
+            value: origin/release/dev
+          - name: BUILD_DEPLOY
+            value: false
