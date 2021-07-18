@@ -29,11 +29,9 @@ func NewAppArgs(initFuncs ...func(args *AppArgs)) *AppArgs {
 	return args
 }
 
-var Jenkins *devops.JenkinsOptions
-
 func NewJenkins(ctx context.Context, url, username, password string) error {
 	var err error
-	Jenkins, err = devops.NewJenkins(ctx, url, username, password)
+	devops.Jenkins, err = devops.NewJenkins(ctx, url, username, password)
 	return err
 }
 

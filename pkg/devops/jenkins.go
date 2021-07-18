@@ -16,6 +16,8 @@ type JenkinsOptions struct {
 	Client *gojenkins.Jenkins
 }
 
+var Jenkins *JenkinsOptions
+
 func NewJenkins(ctx context.Context, url, username, password string) (*JenkinsOptions, error) {
 	jenkins := gojenkins.CreateJenkins(nil, url, username, password)
 	_, err := jenkins.Init(ctx)
@@ -68,4 +70,13 @@ func (j *JenkinsOptions) Build(name string, params map[string]string) (int64, er
 	}
 
 	return number, nil
+}
+
+func (j *JenkinsOptions) BuildStatus(buildId int64) (string, error) {
+	build, err := j.Client.GetBuildFromQueueID(j.ctx, buildId)
+	if err != nil {
+		return "", err
+	}
+
+	return build.GetResult(), nil
 }
